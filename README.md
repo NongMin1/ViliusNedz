@@ -4,9 +4,6 @@ Before running tests, make sure the following are installed:
 
 - **Node.js v18+** — [Download Node.js](https://nodejs.org/)
 - **npm** (comes with Node.js)
-- **Playwright** — install locally in your project:
-  ```bash
-  npm install --save-dev @playwright/test
 
 ## Installation
 
@@ -22,9 +19,9 @@ Clone the repository and install dependencies:
 Create a `.env` file in the project root with at least the following line:
 
 ```env
-BASE_URL=https://your-url-link.com
+BASE_URL=https://your-url-link.com #Update URL to your preferred one
 ```
-[!IMPORTANT] Do not commit the `.env` file. It is already listed in `.gitignore` to prevent sensitive URLs or credentials from being pushed to GitHub.
+
 ## Running Tests
 
 You can run your Playwright tests directly from the command line using npm scripts defined in `package.json`. 
