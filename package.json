@@ -9,7 +9,8 @@
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug",
     "report": "playwright show-report",
-    "trace": "playwright show-trace"
+    "trace": "playwright show-trace",
+    "pw:install": "playwright install"
   },
   "keywords": [],
   "author": "",
