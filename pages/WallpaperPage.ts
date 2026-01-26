@@ -1,7 +1,6 @@
 import path from "node:path";
 import { Page, Locator } from "@playwright/test";
 
-//TODO Page object model
 export class WallpaperPage {
   constructor(private readonly page: Page) {}
 
@@ -29,41 +28,20 @@ export class WallpaperPage {
     await this.premiumItems().nth(index).click();
   }
 
-  async downloadButtonClick() {
+  async download() {
     const downloadPromise = this.page.waitForEvent("download");
 
     await this.page.getByRole("button", { name: "Download" }).click();
     const download = await downloadPromise;
 
-    const popUp = this.page.locator('div[class^="Modal_modal"]');
-    await popUp.waitFor({ state: "detached", timeout: 20000 }).catch(() => {});
+    const modal = this.page.locator('div[class^="Modal_modal"]');
+    await modal.waitFor({ state: "detached", timeout: 20000 }).catch(() => {});
 
     const downloadsFolder = path.resolve(process.cwd(), "test-results", "downloads");
+
     const filePath = path.join(downloadsFolder, download.suggestedFilename());
 
     await download.saveAs(filePath);
-
     return filePath;
   }
-}
-
-export async function performSearchBy(page: Page, query: string, option?: string) {
-  //TODO pameginti su named parametrais.
-  await page.getByRole("link", { name: "Browse Now" }).click();
-
-  if (option) {
-    const dropdown = page.locator("button", { hasText: "All" }).first();
-    await dropdown.scrollIntoViewIfNeeded();
-    await dropdown.click();
-
-    const optionLocator = page.getByRole("menuitemradio", { name: option }).first();
-    await optionLocator.waitFor({ state: "visible" });
-    await optionLocator.click();
-  }
-
-  await page
-    .getByPlaceholder(/Search/i)
-    .first()
-    .fill(query);
-  await page.getByRole("navigation").getByRole("button", { name: "Search" }).click();
 }

@@ -1,28 +1,31 @@
 import fs from "node:fs";
 import searchOptions from "../data/testData";
 import { test, expect } from "@playwright/test";
+import { SearchPage } from "../pages/SearchPage";
+import { WallpaperPage } from "../pages/WallpaperPage";
 import { acceptCookies, blockAds } from "../helpers/helpers";
-import { performSearchBy, WallpaperPage } from "../helpers/search";
 
 test.describe("search tests", () => {
   let wallpaperPage: WallpaperPage;
+  let searchPage: SearchPage;
 
   test.beforeEach(async ({ page, context }) => {
     await blockAds(context);
     await page.goto("/");
     await acceptCookies(page);
     wallpaperPage = new WallpaperPage(page);
+    searchPage = new SearchPage(page);
   });
 
   test("should search for amazing wallpapers", async ({ page }) => {
-    await performSearchBy(page, "amazing", searchOptions[1]);
+    await searchPage.search("amazing", searchOptions[1]);
     await expect(page).toHaveURL(/wallpapers\?keyword=amazing/);
     await expect(page.getByRole("heading", { name: "amazing Wallpapers" })).toBeVisible();
     await expect(page.getByRole("button", { name: searchOptions[1] })).toBeVisible();
   });
 
   test("should identify free and premium wallpapers", async ({ page }) => {
-    await performSearchBy(page, "nature");
+    await searchPage.search("nature");
     await page.waitForURL(/nature/);
 
     await wallpaperPage.openFree();
@@ -37,13 +40,13 @@ test.describe("search tests", () => {
   });
 
   test("should download free wallpaper", async ({ page }) => {
-    await performSearchBy(page, "nature");
+    await searchPage.search("nature");
     await page.waitForURL(/nature/);
 
     await wallpaperPage.openFree(1);
     await page.waitForURL(/wallpapers/);
 
-    const downloadedFilePath = await wallpaperPage.downloadButtonClick();
+    const downloadedFilePath = await wallpaperPage.download();
     await expect(fs.existsSync(downloadedFilePath)).toBeTruthy();
   });
 
