@@ -1,6 +1,7 @@
 import path from "node:path";
 import { Page, Locator } from "@playwright/test";
 
+//TODO Page object model
 export class WallpaperPage {
   constructor(private readonly page: Page) {}
 
@@ -47,6 +48,7 @@ export class WallpaperPage {
 }
 
 export async function performSearchBy(page: Page, query: string, option?: string) {
+  //TODO pameginti su named parametrais.
   await page.getByRole("link", { name: "Browse Now" }).click();
 
   if (option) {
