@@ -18,14 +18,14 @@ test.describe("search tests", () => {
   });
 
   test("should search for amazing wallpapers", async ({ page }) => {
-    await searchPage.search("amazing", searchOptions[1]);
+    await searchPage.search({ query: "amazing", category: searchOptions[1] });
     await expect(page).toHaveURL(/wallpapers\?keyword=amazing/);
     await expect(page.getByRole("heading", { name: "amazing Wallpapers" })).toBeVisible();
     await expect(page.getByRole("button", { name: searchOptions[1] })).toBeVisible();
   });
 
   test("should identify free and premium wallpapers", async ({ page }) => {
-    await searchPage.search("nature");
+    await searchPage.search({ query: "nature" });
     await page.waitForURL(/nature/);
 
     await wallpaperPage.openFree();
@@ -40,7 +40,7 @@ test.describe("search tests", () => {
   });
 
   test("should download free wallpaper", async ({ page }) => {
-    await searchPage.search("nature");
+    await searchPage.search({ query: "nature" });
     await page.waitForURL(/nature/);
 
     await wallpaperPage.openFree(1);
