@@ -1,5 +1,10 @@
 import { Page, Locator } from "@playwright/test";
 
+export interface SearchParams {
+  query: string;
+  category?: string;
+}
+
 export class SearchPage {
   constructor(private readonly page: Page) {}
 
@@ -30,7 +35,6 @@ export class SearchPage {
   }
 
   async selectCategory(option: string) {
-    //TODO parameterize "All"
     await this.categoryDropdown().scrollIntoViewIfNeeded();
     await this.categoryDropdown().click();
 
@@ -38,12 +42,12 @@ export class SearchPage {
     await optionLocator.waitFor({ state: "visible" });
     await optionLocator.click();
   }
-  //TODO parametrize with named parameters
-  async search(query: string, option?: string) {
+
+  async search({ query, category = "All" }: SearchParams) {
     await this.openBrowse();
 
-    if (option) {
-      await this.selectCategory(option);
+    if (category && category !== "All") {
+      await this.selectCategory(category);
     }
 
     await this.searchInput().fill(query);
