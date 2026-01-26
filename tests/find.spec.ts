@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import searchOptions from "../data/testData";
+import { SEARCH_CATEGORIES } from "../data/testData";
 import { test, expect } from "@playwright/test";
 import { SearchPage } from "../pages/SearchPage";
 import { WallpaperPage } from "../pages/WallpaperPage";
@@ -18,10 +18,10 @@ test.describe("search tests", () => {
   });
 
   test("should search for amazing wallpapers", async ({ page }) => {
-    await searchPage.search({ query: "amazing", category: searchOptions[1] });
+    await searchPage.search({ query: "amazing", category: SEARCH_CATEGORIES.WALLPAPERS });
     await expect(page).toHaveURL(/wallpapers\?keyword=amazing/);
     await expect(page.getByRole("heading", { name: "amazing Wallpapers" })).toBeVisible();
-    await expect(page.getByRole("button", { name: searchOptions[1] })).toBeVisible();
+    await expect(page.getByRole("button", { name: SEARCH_CATEGORIES.WALLPAPERS })).toBeVisible();
   });
 
   test("should identify free and premium wallpapers", async ({ page }) => {
