@@ -30,6 +30,7 @@ export class SearchPage {
   }
 
   async selectCategory(option: string) {
+    //TODO parameterize "All"
     await this.categoryDropdown().scrollIntoViewIfNeeded();
     await this.categoryDropdown().click();
 
@@ -37,7 +38,7 @@ export class SearchPage {
     await optionLocator.waitFor({ state: "visible" });
     await optionLocator.click();
   }
-
+  //TODO parametrize with named parameters
   async search(query: string, option?: string) {
     await this.openBrowse();
 
