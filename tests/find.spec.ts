@@ -56,7 +56,7 @@ test.describe("search tests", () => {
         path: `screenshots/${testInfo.title}.png`,
       });
     }
-    //TODO check how Playwright closes after
+    //TODO check how Playwright closes aftera
     await page.close();
     await context.clearCookies();
   });
