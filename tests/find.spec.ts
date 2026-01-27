@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import { SEARCH_CATEGORIES } from "../data/testData";
 import { test, expect } from "@playwright/test";
-import { SearchPage } from "../pages/SearchPage";
-import { WallpaperPage } from "../pages/WallpaperPage";
+import { SearchPage } from "../pages/searchPage";
+import { WallpaperPage } from "../pages/wallpaperPage";
 import { acceptCookies, blockAds } from "../helpers/helpers";
 
 test.describe("search tests", () => {
