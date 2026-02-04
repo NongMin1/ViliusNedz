@@ -50,14 +50,11 @@ test.describe("search tests", () => {
     await expect(fs.existsSync(downloadedFilePath)).toBeTruthy();
   });
 
-  test.afterEach(async ({ page, context }, testInfo) => {
+  test.afterEach(async ({ page }, testInfo) => {
     if (testInfo.status !== testInfo.expectedStatus) {
       await page.screenshot({
         path: `screenshots/${testInfo.title}.png`,
       });
     }
-    //TODO check how Playwright closes aftera
-    await page.close();
-    await context.clearCookies();
   });
 });
