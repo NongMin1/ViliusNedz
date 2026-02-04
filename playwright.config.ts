@@ -19,4 +19,27 @@ export default defineConfig({
       args: ["--disable-extensions", "--disable-infobars"],
     },
   },
+  projects: [
+    {
+      name: "ui",
+      testDir: "./tests/ui",
+      use: {
+        baseURL: process.env.BASE_URL,
+        browserName: "chromium",
+        screenshot: "only-on-failure",
+        trace: "on-first-retry",
+        video: "retain-on-failure",
+      },
+    },
+    {
+      name: "api",
+      testDir: "./tests/api",
+      use: {
+        baseURL: process.env.BASE_URL,
+        extraHTTPHeaders: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        },
+      },
+    },
+  ],
 });
