@@ -8,6 +8,10 @@
     "test:headed": "playwright test --headed --workers=1",
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug",
+    "test:api": "playwright test --project=api",
+    "test:ui-only": "playwright test --project=ui",
+    "test:api:headed": "playwright test --project=api --headed --workers=1",
+    "test:api:debug": "playwright test --project=api --debug",
     "report": "playwright show-report",
     "trace": "playwright show-trace",
     "pw:install": "playwright install"
