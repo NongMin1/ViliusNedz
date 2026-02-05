@@ -35,7 +35,7 @@ export class WallpaperPage {
     const download = await downloadPromise;
 
     const modal = this.page.locator('div[class^="Modal_modal"]');
-    await modal.waitFor({ state: "detached", timeout: 20000 }).catch(() => {}); //TODO investigate how to fix this place properly
+    await modal.waitFor({ state: "detached", timeout: 30000 });
 
     const downloadsFolder = path.resolve(process.cwd(), "test-results", "downloads");
 
