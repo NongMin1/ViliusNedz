@@ -28,18 +28,19 @@ export class WallpaperPage {
     await this.premiumItems().nth(index).click();
   }
 
-  async download() {
+  async download(): Promise<string> {
     const downloadPromise = this.page.waitForEvent("download");
 
     await this.page.getByRole("button", { name: "Download" }).click();
     const download = await downloadPromise;
 
     const modal = this.page.locator('div[class^="Modal_modal"]');
-    await modal.waitFor({ state: "detached", timeout: 20000 }).catch(() => {}); //TODO investigate how to fix this place properly
+    await modal.waitFor({ state: "detached", timeout: 30000 });
 
     const downloadsFolder = path.resolve(process.cwd(), "test-results", "downloads");
 
-    const filePath = path.join(downloadsFolder, download.suggestedFilename());
+    const fileName = `${Date.now()}_${download.suggestedFilename()}`;
+    const filePath = path.join(downloadsFolder, fileName);
 
     await download.saveAs(filePath);
     return filePath;
