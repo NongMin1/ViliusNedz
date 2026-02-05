@@ -4,7 +4,7 @@ import { test, expect } from "@playwright/test";
 import { SearchPage } from "../../pages/SearchPage";
 import { WallpaperPage } from "../../pages/WallpaperPage";
 import { acceptCookies, blockAds } from "../../helpers/helpers";
-
+//TODO UI tests don’t validate results content beyond URL and a heading. Consider asserting at least one result card, and that category filtering actually changes the results set.
 test.describe("search tests", () => {
   let wallpaperPage: WallpaperPage;
   let searchPage: SearchPage;
@@ -38,7 +38,7 @@ test.describe("search tests", () => {
     await page.waitForURL(/wallpapers/);
     await expect(page.locator("span", { hasText: "Premium" })).toBeVisible();
   });
-
+  //TODO Download test only checks file existence. Consider asserting file size > 0 and expected extension/type.
   test("should download free wallpaper", async ({ page }) => {
     await searchPage.search({ query: "nature" });
     await page.waitForURL(/nature/);

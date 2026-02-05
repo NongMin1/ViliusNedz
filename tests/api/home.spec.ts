@@ -6,7 +6,7 @@ test.describe("Home API - First Tests", () => {
   test.beforeEach(async ({ request }) => {
     response = await request.get("/");
   });
-
+  //TODO API tests only cover / and basic HTML content; consider one negative case (e.g., 404 on a known missing route) or a performance/timing threshold if that matters.
   test("should validate home page is accessible", async () => {
     expect.soft(response.status()).toBe(200);
     expect.soft(response.ok()).toBeTruthy();
