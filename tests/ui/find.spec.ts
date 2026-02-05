@@ -1,9 +1,9 @@
 import fs from "node:fs";
-import { SEARCH_CATEGORIES } from "../data/testData";
+import { SEARCH_CATEGORIES } from "../../data/testData";
 import { test, expect } from "@playwright/test";
-import { SearchPage } from "../pages/SearchPage";
-import { WallpaperPage } from "../pages/WallpaperPage";
-import { acceptCookies, blockAds } from "../helpers/helpers";
+import { SearchPage } from "../../pages/SearchPage";
+import { WallpaperPage } from "../../pages/WallpaperPage";
+import { acceptCookies, blockAds } from "../../helpers/helpers";
 
 test.describe("search tests", () => {
   let wallpaperPage: WallpaperPage;
