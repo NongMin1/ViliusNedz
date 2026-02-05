@@ -8,23 +8,24 @@ test.describe("Home API - First Tests", () => {
   });
 
   test("should validate home page is accessible", async () => {
-    expect(response.status()).toBe(200);
-    expect(response.ok()).toBeTruthy();
+    expect.soft(response.status()).toBe(200);
+    expect.soft(response.ok()).toBeTruthy();
 
     const contentType = response.headers()["content-type"];
-    expect(contentType).toContain("text/html");
+    expect.soft(contentType).toContain("text/html");
   });
 
   test("should have proper response headers", async () => {
     const headers = response.headers();
 
-    expect(headers["content-type"]).toBeDefined();
+    expect.soft(headers["date"]).toBeDefined();
+    expect.soft(headers["server"]).toBeDefined();
   });
 
   test("should validate response is HTML", async () => {
     const html = await response.text();
 
-    expect(html).toContain("<html");
+    expect.soft(html).toContain("<!DOCTYPE html>");
     expect(html.length).toBeGreaterThan(0);
   });
 });
@@ -37,7 +38,7 @@ test.describe("Home API - Negative Tests", () => {
 
   test("should return a client error for an invalid method", async ({ request }) => {
     const response = await request.post("/");
-    expect(response.status()).toBeGreaterThanOrEqual(400);
-    expect(response.status()).toBeLessThan(500);
+    expect.soft(response.status()).toBeGreaterThanOrEqual(400);
+    expect.soft(response.status()).toBeLessThan(500);
   });
 });
